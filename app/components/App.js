@@ -40,6 +40,8 @@ class App extends React.Component {
     // Change the color of the box.
     box.css('background-color', (box.css('background-color') === 'rgb(0, 0, 255)' ? 'black' : 'blue'));
     $('.App-header').addClass('border: 1px solid #333');
+    this.state.body.find('#title').css('background-color', 'orange');
+    this.state.body.find('#title').html('Titre');
   }
   onSampleClick() {
     this.setState({
