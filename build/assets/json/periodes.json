@@ -1,0 +1,37 @@
+[
+  {
+      "text": "Un mois",
+      "value": 1,
+      "unit": "month"
+  },
+  {
+      "text": "Deux mois",
+      "value": 2,
+      "unit": "month"
+  },
+  {
+      "text": "Trois mois",
+      "value": 3,
+      "unit": "month"
+  },
+  {
+      "text": "Six mois",
+      "value": 6,
+      "unit": "month"
+  },
+  {
+      "text": "Un an",
+      "value": 1,
+      "unit": "year"
+  },
+  {
+      "text": "Deux ans",
+      "value": 2,
+      "unit": "year"
+  },
+  {
+      "text": "Trois ans",
+      "value": 3,
+      "unit": "year"
+  }
+]

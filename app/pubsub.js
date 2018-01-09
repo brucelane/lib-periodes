@@ -15,10 +15,10 @@ console.log('toto');
 };
 */
 $(function() {
-   setTimeout(function() {
+   /*setTimeout(function() {
     console.log('timeout')
     ReactDOM.render(React.createElement(Periode, { context: PubSubManager, body: $('body')}), document.getElementById('root'));
-  }, 0);
+  }, 0); */
 
   // Change the box color every few seconds.
   setInterval(function() {
@@ -29,6 +29,6 @@ $(function() {
     box.css('background-color', color);
 
     // Notify subscribers.
-    PubSubManager.color(color);
+    //PubSubManager.color(color);
   }, 3000)
 });

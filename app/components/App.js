@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import $ from 'jquery';
-
-// const bootstrap = require('bootstrap');
+import { Button } from 'react-bootstrap';
 
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
-// console.log(bootstrap)
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +17,7 @@ class App extends React.Component {
       color: 'red',
       context: props.context,
       body: props.body,
+      periodes: props.periodes,
       startDate: moment(),
     };
 
@@ -27,6 +26,9 @@ class App extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  componentDidMount() {
+    $('.App-header').addClass('border: 1px solid #333');
+  }
   onColor(color) {
     // Update the state value for color.
     // console.log('color:' + color);
@@ -34,11 +36,29 @@ class App extends React.Component {
   }
   onClick() {
     // Get reference to a JQuery object in parent app.
-    console.log('onClick');
-    console.log($);
     const box = this.state.body.find('#box');
     // Change the color of the box.
     box.css('background-color', (box.css('background-color') === 'rgb(0, 0, 255)' ? 'black' : 'blue'));
+    $('.App-header').addClass('border: 1px solid #333');
+  }
+  onSampleClick() {
+    this.setState({
+      periodes: [],
+    });
+    $.ajax({
+      method: 'get',
+      url: 'assets/json/periodes.json',
+      data: 'passing data if any',
+      success(data) {
+        console.log(data);
+        /* this.setState({
+          periodes: data,
+        }); */
+      },
+      error(err) {
+        console.log(err);
+      },
+    });
   }
   handleChange(date) {
     this.setState({
@@ -48,10 +68,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="alert alert-warning" role="alert">
-        <h3>Periode</h3>
+        <h3 className="App-header">{this.state.periodes}</h3>
         <span className={`badge ${this.state.color === 'red' ? 'badge-danger' : 'badge-success'} p-3`}>
           { this.state.color }
         </span>
+        <Button bsStyle="primary" bsSize="large" active onClick={this.onSampleClick}>Sample onClick</Button>
         <button type="button" className="btn btn-default" onClick={this.onClick}>Click Me</button>
         <DatePicker
           selected={this.state.startDate}
@@ -81,6 +102,7 @@ class App extends React.Component {
 App.propTypes = {
   context: PropTypes.object,
   body: PropTypes.string,
+  periodes: PropTypes.array,
 };
 App.defaultProps = {
   context: {
@@ -96,5 +118,6 @@ App.defaultProps = {
     },
   },
   body: $('body'),
+  periodes: [],
 };
 export default App;
