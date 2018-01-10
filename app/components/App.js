@@ -12,13 +12,16 @@ global.jQuery = $;
 class App extends React.Component {
   constructor(props) {
     super(props);
-
+    moment.locale('fr');
     this.state = {
       color: 'red',
       context: props.context,
       body: props.body,
       periodes: props.periodes,
-      startDate: moment(),
+      // debutPeriode: 1,
+      // finPeriode: 'month',
+      startDate: moment().subtract(1, 'month'),
+      endDate: moment(),
     };
 
     // Subscribe to color events.
@@ -40,8 +43,9 @@ class App extends React.Component {
     // Change the color of the box.
     box.css('background-color', (box.css('background-color') === 'rgb(0, 0, 255)' ? 'black' : 'blue'));
     $('.App-header').addClass('border: 1px solid #333');
-    this.state.body.find('#title').css('background-color', 'orange');
-    this.state.body.find('#title').html('Titre');
+    this.state.body.find('#titre').css('background-color', 'orange');
+    this.state.body.find('#titre').html('Titre');
+    this.state.body.find('#titrePeriode').text(`Du ${moment(this.state.startDate).format('dddd DD/MM/YYYY')} au ${moment(this.state.endDate).format('dddd DD/MM/YYYY')}`);
   }
   onSampleClick() {
     this.setState({
@@ -67,6 +71,11 @@ class App extends React.Component {
       startDate: date,
     });
   }
+  handleChangeEnd(date) {
+    this.setState({
+      endDate: date,
+    });
+  }
   render() {
     return (
       <div className="alert alert-warning" role="alert">
@@ -74,8 +83,8 @@ class App extends React.Component {
         <span className={`badge ${this.state.color === 'red' ? 'badge-danger' : 'badge-success'} p-3`}>
           { this.state.color }
         </span>
-        <Button bsStyle="primary" bsSize="large" active onClick={this.onSampleClick}>Sample onClick</Button>
-        <button type="button" className="btn btn-default" onClick={this.onClick}>Click Me</button>
+        <Button bsStyle="primary" bsSize="large" active onClick={this.onSampleClick}>onClick</Button>
+        <Button bsStyle="success" onClick={this.onClick}>Click Me</Button>
         <DatePicker
           selected={this.state.startDate}
           selectsStart
@@ -103,7 +112,7 @@ class App extends React.Component {
 }
 App.propTypes = {
   context: PropTypes.object,
-  body: PropTypes.string,
+  body: PropTypes.object,
   periodes: PropTypes.array,
 };
 App.defaultProps = {
